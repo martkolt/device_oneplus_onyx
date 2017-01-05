@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnyxDoze
 
+# Find7Parts
+PRODUCT_PACKAGES += \
+    Find7Parts
+
 # OTA Updates
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.ota.romname=AOSP-OnePlus-X-7.1 \
