@@ -218,6 +218,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8974
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
+
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
@@ -258,6 +262,3 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PACKAGES += \
     wcnss_service
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
