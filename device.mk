@@ -120,9 +120,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnyxDoze
 
-# Find7Parts
+# OnyxParts
 PRODUCT_PACKAGES += \
-    Find7Parts
+    OnyxParts
 
 # OTA Updates
 PRODUCT_PROPERTY_OVERRIDES += \
