@@ -120,6 +120,10 @@ PRODUCT_PACKAGES += \
     libshims_camera \
     libstlport
 
+# Disable camera Treble path
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera.disable_treble=true
+
 # Camera HIDL interfaces
 PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
