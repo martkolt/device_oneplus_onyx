@@ -92,6 +92,8 @@ USE_DEVICE_SPECIFIC_CAMERA := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
+BOARD_CHARGER_ENABLE_SUSPEND := true
+BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
 # Enable dexpreopt to speed boot time
 ifeq ($(HOST_OS),linux)
