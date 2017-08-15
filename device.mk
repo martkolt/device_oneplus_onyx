@@ -254,5 +254,3 @@ PRODUCT_PACKAGES += \
     wcnss_service \
     wificond
 
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
