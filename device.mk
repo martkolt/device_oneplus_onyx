@@ -208,6 +208,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8974
 
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
+
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
