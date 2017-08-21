@@ -30,6 +30,9 @@ PRODUCT_PACKAGES += \
     charger_res_images \
     charger
 
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
+
 PRODUCT_NAME := omni_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_BRAND := OnePlus

@@ -63,3 +63,7 @@ BOARD_CUSTOM_BOOTIMG_MK := device/oneplus/onyx/custombootimg.mk
 
 # Assertions
 TARGET_BOARD_INFO_FILE := device/oneplus/onyx/board-info.txt
+
+# Releasetools
+TARGET_RECOVERY_UPDATER_LIBS := librecovery_updater_oppo
+TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
