@@ -150,6 +150,9 @@ TARGET_CONTINUOUS_SPLASH_ENABLED := true
 TARGET_USES_ION := true
 USE_OPENGL_RENDERER := true
 
+# Vendor Interface Manifest
+DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
+
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
