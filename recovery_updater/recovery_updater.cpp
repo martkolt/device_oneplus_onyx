@@ -13,11 +13,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
-*/
+ */
 
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <stdint.h>
@@ -25,6 +26,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+#include <string>
 
 #include "edify/expr.h"
 #include "updater/install.h"
@@ -37,6 +40,10 @@
 #define TZ_VER_STR "QC_IMAGE_VERSION_STRING="
 #define TZ_VER_STR_LEN 24
 #define TZ_VER_BUF_LEN 255
+
+#define CACHE_PART_PATH    "/dev/block/platform/msm_sdcc.1/by-name/cache"
+#define USERDATA_PART_PATH "/dev/block/platform/msm_sdcc.1/by-name/userdata"
+#define SYSTEM_PART_PATH   "/dev/block/platform/msm_sdcc.1/by-name/system"
 
 /* Boyer-Moore string search implementation from Wikipedia */
 
@@ -52,8 +59,8 @@ static int max_suffix_len(const char *str, size_t str_len, size_t p) {
 }
 
 /* Generate table of distance between last character of pat and rightmost
-* occurrence of character c in pat
-*/
+ * occurrence of character c in pat
+ */
 static void bm_make_delta1(int *delta1, const char *pat, size_t pat_len) {
     uint32_t i;
     for (i = 0; i < ALPHABET_LEN; i++) {
@@ -186,7 +193,63 @@ Value * VerifyTrustZoneFn(const char *name, State *state, const std::vector<std:
     return StringValue(strdup(ret ? "1" : "0"));
 }
 
+static int check_for_f2fs() {
+    std::string blkid_output;
+    int pipefd[2];
+    pid_t child;
+    FILE *fp;
+    int ret = 1;
+
+    if (pipe(pipefd) < 0)
+        return -1;
+
+    if ((child = fork()) < 0)
+        return -1;
+
+    if (child == 0) {
+        dup2(pipefd[1], STDOUT_FILENO);
+        close(pipefd[0]);
+        close(pipefd[1]);
+
+        execl("/sbin/blkid", "blkid", CACHE_PART_PATH,
+            USERDATA_PART_PATH, SYSTEM_PART_PATH, NULL);
+        return -1;
+    }
+
+    waitpid(child, NULL, 0);
+    close(pipefd[1]);
+
+    fp = fdopen(pipefd[0], "r");
+
+    while (1) {
+        char c = fgetc(fp);
+        if (feof(fp))
+            break;
+        blkid_output += c;
+    }
+
+    fclose(fp);
+
+    if (strstr(blkid_output.c_str(), "f2fs"))
+        ret = 0;
+
+    return ret;
+}
+
+Value * VerifyFsTypeFn(const char *name, State *state, int argc, Expr *argv[]) {
+    int ret;
+
+    ret = check_for_f2fs();
+    if (ret < 0)
+        uiPrintf(state, "Failed to check partitions for F2FS!");
+    else if (ret == 0)
+        uiPrintf(state, "Error, F2FS is not supported! Use EXT4 instead.");
+
+    return StringValue(strdup(ret > 0 ? "1" : "0"));
+}
+
 void Register_librecovery_updater_oppo() {
     RegisterFunction("oppo.verify_trustzone", VerifyTrustZoneFn);
+    RegisterFunction("oppo.verify_fs_type", VerifyFsTypeFn);
 }
 

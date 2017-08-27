@@ -160,4 +160,6 @@ def AddTrustZoneAssertion(info):
     if len(versions) and '*' not in versions:
       cmd = 'assert(oppo.verify_trustzone(' + ','.join(['"%s"' % tz for tz in versions]) + ') == "1");'
       info.script.AppendExtra(cmd)
+  cmd = 'assert(oppo.verify_fs_type() == "1");'
+  info.script.AppendExtra(cmd)
   return
