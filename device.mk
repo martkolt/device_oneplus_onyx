@@ -109,7 +109,11 @@ PRODUCT_PACKAGES += \
 # Audio HIDL interfaces
 PRODUCT_PACKAGES += \
     android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl \
+    android.hardware.audio.effect@2.0-impl
+
+# DRM HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.drm@1.0-impl
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -167,6 +171,10 @@ PRODUCT_PACKAGES += \
     android.hardware.graphics.composer@2.1-impl \
     android.hardware.graphics.mapper@2.0-impl \
     android.hardware.memtrack@1.0-impl
+
+# RenderScript HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.renderscript@1.0-impl
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -267,6 +275,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     libxml2
+
+# RIL HIDL interfaces
+PRODUCT_PACKAGES += \
+    android.hardware.radio@1.0-impl
 
 # Sensors
 PRODUCT_COPY_FILES += \
