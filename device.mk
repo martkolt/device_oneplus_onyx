@@ -110,6 +110,7 @@ PRODUCT_PACKAGES += \
 
 # Camera
 PRODUCT_PACKAGES += \
+    libshims_atomic \
     libshims_camera \
     libstlport
 
