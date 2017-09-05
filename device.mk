@@ -118,7 +118,8 @@ PRODUCT_PACKAGES += \
 # Camera
 PRODUCT_PACKAGES += \
     libshims_atomic \
-    libshims_camera
+    libshims_camera \
+    libshim_cameraparams
 
 # Disable camera Treble path
 PRODUCT_PROPERTY_OVERRIDES += \
