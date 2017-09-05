@@ -109,6 +109,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libshims_atomic \
     libshims_camera \
+    libshims_parameters \
     libstlport
 
 # Disable camera Treble path
