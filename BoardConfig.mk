@@ -159,6 +159,11 @@ DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
 TARGET_INIT_VENDOR_LIB := libinit_onyx
 TARGET_RECOVERY_DEVICE_MODULES := libinit_onyx
 
+# QCOM HAL
+TARGET_QCOM_AUDIO_VARIANT := caf-msm8974
+TARGET_QCOM_MEDIA_VARIANT := caf-msm8974
+TARGET_QCOM_DISPLAY_VARIANT := caf-msm8974
+
 # Keymaster
 TARGET_KEYMASTER_WAIT_FOR_QSEE := true
 # Control flag between KM versions
