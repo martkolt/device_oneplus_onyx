@@ -87,22 +87,15 @@ etc/firmware/cpp_firmware_v1_1_6.fw
 etc/firmware/cpp_firmware_v1_2_0.fw
 
 # DRM
--framework/com.google.widevine.software.drm.jar
 bin/qseecomd
-etc/permissions/com.google.widevine.software.drm.xml
 vendor/lib/libQSEEComAPI.so
-vendor/lib/libWVStreamControlAPI_L3.so
-vendor/lib/libdrmdiag.so
 vendor/lib/libdrmfs.so
 vendor/lib/libdrmtime.so
 vendor/lib/librpmb.so
 vendor/lib/libssd.so
-vendor/lib/libtzdrmgenprov.so
-vendor/lib/libwvdrm_L3.so
+
+# Widevine
 vendor/lib/mediadrm/libwvdrmengine.so
-vendor/lib/qcdrm/playready/lib/drm/libdrmprplugin_customer.so
-vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
-vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
 
 # FM
 -lib/vendor.qti.hardware.fm@1.0.so
