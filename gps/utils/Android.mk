@@ -61,6 +61,7 @@ LOCAL_MODULE := libgps.utils
 #LOCAL_CLANG := false
 
 LOCAL_MODULE_TAGS := optional
+LOCAL_PROPRIETARY_MODULE := true
 
 LOCAL_PRELINK_MODULE := false
 
