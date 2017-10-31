@@ -469,7 +469,7 @@ service qseecomd /vendor/bin/qseecomd
 service charger /sbin/healthd -c
     class charger
     critical
-    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 service qbcharger /charger -m 1
     disabled
