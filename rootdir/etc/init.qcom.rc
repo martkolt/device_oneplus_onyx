@@ -410,12 +410,12 @@ service rfs_access /system/bin/rfs_access
 service qmuxd /system/bin/qmuxd
     class main
     user radio
-    group radio audio bluetooth gps qcom_diag
+    group radio audio bluetooth gps oem_2950
 
 service netmgrd /system/bin/netmgrd
     class main
     user root
-    group root radio wifi qcom_diag inet wakelock
+    group root radio wifi oem_2950 inet wakelock
 
 # QCOM sensor
 service sensors /system/bin/sensors.qcom
@@ -459,7 +459,7 @@ service wpa_supplicant /vendor/bin/hw/wpa_supplicant \
 service loc_launcher /system/bin/loc_launcher
     #loc_launcher will start as root and set its uid to gps
     class late_start
-    group gps qcom_oncrpc inet net_raw diag qcom_diag net_admin wifi
+    group gps qcom_oncrpc inet net_raw diag oem_2950 net_admin wifi
 
 service qseecomd /system/bin/qseecomd
     class core
@@ -523,7 +523,7 @@ service config_bdaddr /system/bin/btnvtool -O
 service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
     user root
-    group bluetooth net_bt_admin qcom_diag radio
+    group bluetooth net_bt_admin oem_2950 radio
     disabled
     oneshot
 
@@ -546,7 +546,7 @@ service audiod /system/bin/audiod
 service wcnss-service /system/bin/wcnss_service
     class late_start
     user system
-    group system wifi qcom_diag radio
+    group system wifi oem_2950 radio
     oneshot
 
 service ppd /system/bin/mm-pp-daemon
@@ -566,14 +566,14 @@ on property:init.svc.surfaceflinger=running
 service diag_mdlog_start /system/bin/diag_mdlog
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system oem_2950 sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
 service diag_mdlog_stop /system/bin/diag_mdlog -k
     class late_start
     user shell
-    group system qcom_diag sdcard_rw sdcard_r media_rw
+    group system oem_2950 sdcard_rw sdcard_r media_rw
     disabled
     oneshot
 
@@ -597,11 +597,11 @@ service ril-daemon /system/bin/rild
     socket sap_uim_socket1 stream 660 bluetooth bluetooth
     socket rild-debug stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw qcom_diag diag log net_raw
+    group radio cache inet misc audio sdcard_r sdcard_rw oem_2950 diag log net_raw
 
 service ril-daemon2 /system/bin/rild -c 2
     class late_start
     socket rild2 stream 660 root radio
     socket rild-debug2 stream 660 radio system
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw qcom_diag diag log net_raw
+    group radio cache inet misc audio sdcard_r sdcard_rw oem_2950 diag log net_raw
