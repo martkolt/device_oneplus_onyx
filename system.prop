@@ -70,7 +70,7 @@ debug.hwui.use_buffer_age=false
 persist.media.treble_omx=false
 
 # QC vendor extension
-ro.frp.pst=/dev/block/bootdevice/by-name/config
+ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/config
 drm.service.enabled=true
 
 # QMI
