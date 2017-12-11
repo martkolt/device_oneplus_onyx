@@ -104,6 +104,11 @@ vendor/lib/qcdrm/playready/lib/drm/libdrmprplugin_customer.so
 vendor/lib/qcdrm/playready/lib/libprdrmdecrypt_customer.so
 vendor/lib/qcdrm/playready/lib/libtzplayready_customer.so
 
+# FM
+-lib/vendor.qti.hardware.fm@1.0.so
+vendor/lib/hw/vendor.qti.hardware.fm@1.0-impl.so
+vendor/lib/vendor.qti.hardware.fm@1.0_vendor.so
+
 # GPS
 bin/loc_launcher
 lib/libloc_api_v02.so
