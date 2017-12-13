@@ -17,3 +17,5 @@ allow system_server sensors_device:chr_file { getattr };
 allow system_server sensors:unix_stream_socket { connectto };
 allow system_server sensors_socket:sock_file rw_file_perms;
 allow system_server qmuxd:unix_stream_socket { connectto };
+
+allow system_server frp_block_device:blk_file rw_file_perms;

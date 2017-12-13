@@ -5,8 +5,11 @@
 # Persist filesystem
 /dev/block/platform/msm_sdcc\.1/by-name/persist         u:object_r:persist_block_device:s0
 
+# Cache
+/dev/block/platform/msm_sdcc\.1/by-name/cache           u:object_r:cache_block_device:s0
+
 # FRP partition
-/dev/block/bootdevice/by-name/config                    u:object_r:frp_block_device:s0
+/dev/block/platform/msm_sdcc\.1/by-name/config          u:object_r:frp_block_device:s0
 
 # Reserve4 filesystem for encryption
 /dev/block/platform/msm_sdcc\.1/by-name/reserve2        u:object_r:reserve2_block_device:s0
@@ -30,3 +33,6 @@
 
 # Modem
 /dev/block/platform/msm_sdcc\.1/by-name/modem           u:object_r:modem_block_device:s0
+
+# ADB
+/dev/android_adb                                        u:object_r:adb_device:s0
