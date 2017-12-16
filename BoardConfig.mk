@@ -151,6 +151,7 @@ USE_OPENGL_RENDERER := true
 
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
+DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
 
 # QCOM HAL
 TARGET_QCOM_AUDIO_VARIANT := caf-msm8974
