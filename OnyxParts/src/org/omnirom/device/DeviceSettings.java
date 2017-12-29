@@ -20,18 +20,18 @@ package org.omnirom.device;
 import android.content.res.Resources;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
-import android.preference.PreferenceActivity;
-import android.preference.PreferenceCategory;
-import android.preference.PreferenceScreen;
-import android.preference.TwoStatePreference;
+import android.support.v14.preference.PreferenceFragment;
+import android.support.v7.preference.ListPreference;
+import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
+import android.support.v7.preference.PreferenceScreen;
+import android.support.v7.preference.TwoStatePreference;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.util.Log;
 
-public class DeviceSettings extends PreferenceActivity implements
+public class DeviceSettings extends PreferenceFragment implements
         Preference.OnPreferenceChangeListener {
 
     public static final String KEY_CAMERA_SWITCH = "camera";
@@ -41,7 +41,7 @@ public class DeviceSettings extends PreferenceActivity implements
     private static final String KEY_SLIDER_MODE_TOP = "slider_mode_top";
     private static final String KEY_SLIDER_MODE_CENTER = "slider_mode_center";
     private static final String KEY_SLIDER_MODE_BOTTOM = "slider_mode_bottom";
-    private static final String KEY_SWAP_BACK_RECENTS = "swap_back_recents";
+    public static final String KEY_SWAP_BACK_RECENTS = "swap_back_recents";
     public static final String KEY_HBM_SWITCH = "hbm";
     public static final String KEY_PROXI_SWITCH = "proxi";
     public static final String KEY_DOUBLE_TAP_SWITCH = "double_tap";
@@ -59,20 +59,17 @@ public class DeviceSettings extends PreferenceActivity implements
     private TwoStatePreference mDoubleTapSwitch;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
-        addPreferencesFromResource(R.xml.main);
+    public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
+        setPreferencesFromResource(R.xml.main, rootKey);
 
         mTorchSwitch = (TwoStatePreference) findPreference(KEY_TORCH_SWITCH);
         mTorchSwitch.setEnabled(TorchGestureSwitch.isSupported());
-        mTorchSwitch.setChecked(TorchGestureSwitch.isCurrentlyEnabled(this));
+        mTorchSwitch.setChecked(TorchGestureSwitch.isCurrentlyEnabled(this.getContext()));
         mTorchSwitch.setOnPreferenceChangeListener(new TorchGestureSwitch());
 
         mCameraSwitch = (TwoStatePreference) findPreference(KEY_CAMERA_SWITCH);
         mCameraSwitch.setEnabled(CameraGestureSwitch.isSupported());
-        mCameraSwitch.setChecked(CameraGestureSwitch.isCurrentlyEnabled(this));
+        mCameraSwitch.setChecked(CameraGestureSwitch.isCurrentlyEnabled(this.getContext()));
         mCameraSwitch.setOnPreferenceChangeListener(new CameraGestureSwitch());
 
         mVibratorStrength = (VibratorStrengthPreference) findPreference(KEY_VIBSTRENGTH);
@@ -82,7 +79,7 @@ public class DeviceSettings extends PreferenceActivity implements
 
         mMusicSwitch = (TwoStatePreference) findPreference(KEY_MUSIC_SWITCH);
         mMusicSwitch.setEnabled(MusicGestureSwitch.isSupported());
-        mMusicSwitch.setChecked(MusicGestureSwitch.isCurrentlyEnabled(this));
+        mMusicSwitch.setChecked(MusicGestureSwitch.isCurrentlyEnabled(this.getContext()));
         mMusicSwitch.setOnPreferenceChangeListener(new MusicGestureSwitch());
 
         mSliderModeTop = (ListPreference) findPreference(KEY_SLIDER_MODE_TOP);
@@ -107,49 +104,37 @@ public class DeviceSettings extends PreferenceActivity implements
         mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
 
         mSwapBackRecents = (TwoStatePreference) findPreference(KEY_SWAP_BACK_RECENTS);
-        mSwapBackRecents.setChecked(Settings.System.getInt(getContentResolver(),
+        mSwapBackRecents.setChecked(Settings.System.getInt(getContext().getContentResolver(),
                     Settings.System.BUTTON_SWAP_BACK_RECENTS, 0) != 0);
 
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
-        mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this));
+        mHBMModeSwitch.setChecked(HBMModeSwitch.isCurrentlyEnabled(this.getContext()));
         mHBMModeSwitch.setOnPreferenceChangeListener(new HBMModeSwitch());
 
         mProxiSwitch = (TwoStatePreference) findPreference(KEY_PROXI_SWITCH);
-        mProxiSwitch.setChecked(Settings.System.getInt(getContentResolver(),
+        mProxiSwitch.setChecked(Settings.System.getInt(getContext().getContentResolver(),
                 Settings.System.DEVICE_PROXI_CHECK_ENABLED, 0) == 1);
 
         mDoubleTapSwitch = (TwoStatePreference) findPreference(KEY_DOUBLE_TAP_SWITCH);
         mDoubleTapSwitch.setEnabled(DoubleTapSwitch.isSupported());
-        mDoubleTapSwitch.setChecked(DoubleTapSwitch.isCurrentlyEnabled(this));
+        mDoubleTapSwitch.setChecked(DoubleTapSwitch.isCurrentlyEnabled(this.getContext()));
         mDoubleTapSwitch.setOnPreferenceChangeListener(new DoubleTapSwitch());
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-        case android.R.id.home:
-            finish();
-            return true;
-        default:
-            break;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+    public boolean onPreferenceTreeClick(Preference preference) {
         if (preference == mSwapBackRecents) {
-            Settings.System.putInt(getContentResolver(),
+            Settings.System.putInt(getContext().getContentResolver(),
                     Settings.System.BUTTON_SWAP_BACK_RECENTS, mSwapBackRecents.isChecked() ? 1 : 0);
             return true;
         }
-       if (preference == mProxiSwitch) {
-            Settings.System.putInt(getContentResolver(),
+        if (preference == mProxiSwitch) {
+            Settings.System.putInt(getContext().getContentResolver(),
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED, mProxiSwitch.isChecked() ? 1 : 0);
             return true;
         }
-       return super.onPreferenceTreeClick(preferenceScreen, preference);
+       return super.onPreferenceTreeClick(preference);
     }
 
     @Override
@@ -179,7 +164,7 @@ public class DeviceSettings extends PreferenceActivity implements
     }
 
     private int getSliderAction(int position) {
-        String value = Settings.System.getString(getContentResolver(),
+        String value = Settings.System.getString(getContext().getContentResolver(),
                     Settings.System.BUTTON_EXTRA_KEY_MAPPING);
         final String defaultValue = "5,3,0";
 
@@ -197,7 +182,7 @@ public class DeviceSettings extends PreferenceActivity implements
     }
 
     private void setSliderAction(int position, int action) {
-        String value = Settings.System.getString(getContentResolver(),
+        String value = Settings.System.getString(getContext().getContentResolver(),
                     Settings.System.BUTTON_EXTRA_KEY_MAPPING);
         final String defaultValue = "5,3,0";
 
@@ -210,7 +195,7 @@ public class DeviceSettings extends PreferenceActivity implements
             String[] parts = value.split(",");
             parts[position] = String.valueOf(action);
             String newValue = TextUtils.join(",", parts);
-            Settings.System.putString(getContentResolver(),
+            Settings.System.putString(getContext().getContentResolver(),
                     Settings.System.BUTTON_EXTRA_KEY_MAPPING, newValue);
         } catch (Exception e) {
         }
