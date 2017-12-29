@@ -34,6 +34,8 @@ import android.hardware.SensorManager;
 import android.media.IAudioService;
 import android.media.AudioManager;
 import android.media.session.MediaSessionLegacyHelper;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.os.Handler;
 import android.os.Message;
 import android.os.PowerManager;
@@ -55,6 +57,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
     private static final String TAG = KeyHandler.class.getSimpleName();
     private static final boolean DEBUG = true;
+    private static final boolean DEBUG_SENSOR = false;
     protected static final int GESTURE_REQUEST = 1;
     private static final int GESTURE_WAKELOCK_DURATION = 2000;
     private static final String KEY_CONTROL_PATH = "/proc/touchpanel/keypad_enable";
@@ -82,6 +85,12 @@ public class KeyHandler implements DeviceKeyHandler {
     private static final int KEY_SLIDER_TOP = 601;
     private static final int KEY_SLIDER_CENTER = 602;
     private static final int KEY_SLIDER_BOTTOM = 603;
+
+    private static final int BATCH_LATENCY_IN_MS = 100;
+    private static final int MIN_PULSE_INTERVAL_MS = 2500;
+    private static final String DOZE_INTENT = "com.android.systemui.doze.pulse";
+    private static final int HANDWAVE_MAX_DELTA_MS = 1000;
+    private static final int POCKET_MIN_DELTA_MS = 5000;
 
     private static final int[] sSupportedGestures = new int[]{
         GESTURE_CIRCLE_SCANCODE,
@@ -117,7 +126,7 @@ public class KeyHandler implements DeviceKeyHandler {
         KEY_DOUBLE_TAP
     };
 
-    protected final Context mContext;
+    private final Context mContext;
     private final PowerManager mPowerManager;
     private EventHandler mEventHandler;
     private WakeLock mGestureWakeLock;
@@ -133,12 +142,52 @@ public class KeyHandler implements DeviceKeyHandler {
     private Sensor mSensor;
     private boolean mProxyIsNear;
     private boolean mUseProxiCheck;
+    private Sensor mTiltSensor;
+    private long mTiltSensorTimestamp;
+    private boolean mUseTiltCheck;
+    private boolean mProxyWasNear;
+    private long mProxySensorTimestamp;
+    private boolean mUseWaveCheck;
+    private boolean mUsePocketCheck;
 
     private SensorEventListener mProximitySensor = new SensorEventListener() {
         @Override
         public void onSensorChanged(SensorEvent event) {
             mProxyIsNear = event.values[0] < mSensor.getMaximumRange();
-            if (DEBUG) Log.d(TAG, "mProxyIsNear = " + mProxyIsNear);
+            if (DEBUG_SENSOR) Log.i(TAG, "mProxyIsNear = " + mProxyIsNear);
+            if (mUseWaveCheck || mUsePocketCheck) {
+                if (mProxyWasNear && !mProxyIsNear) {
+                    long delta = SystemClock.elapsedRealtime() - mProxySensorTimestamp;
+                    if (mUseWaveCheck && delta < HANDWAVE_MAX_DELTA_MS) {
+                        launchDozePulse();
+                    }
+                    if (mUsePocketCheck && delta > POCKET_MIN_DELTA_MS) {
+                        launchDozePulse();
+                    }
+                }
+                mProxySensorTimestamp = SystemClock.elapsedRealtime();
+                mProxyWasNear = mProxyIsNear;
+            }
+        }
+
+        @Override
+        public void onAccuracyChanged(Sensor sensor, int accuracy) {
+        }
+    };
+
+    private SensorEventListener mTiltSensorListener = new SensorEventListener() {
+        @Override
+        public void onSensorChanged(SensorEvent event) {
+            long delta = SystemClock.elapsedRealtime() - mTiltSensorTimestamp;
+            if (delta < MIN_PULSE_INTERVAL_MS) {
+                return;
+            } else {
+                mTiltSensorTimestamp = SystemClock.elapsedRealtime();
+            }
+
+            if (event.values[0] == 1) {
+                launchDozePulse();
+            }
         }
 
         @Override
@@ -158,11 +207,25 @@ public class KeyHandler implements DeviceKeyHandler {
             mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED),
                     false, this);
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DEVICE_FEATURE_SETTINGS),
+                    false, this);
             update();
+            updateDozeSettings();
         }
 
         @Override
         public void onChange(boolean selfChange) {
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange, Uri uri) {
+            if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DEVICE_FEATURE_SETTINGS))){
+                updateDozeSettings();
+                return;
+            }
             update();
         }
 
@@ -216,6 +279,7 @@ public class KeyHandler implements DeviceKeyHandler {
 
         mSensorManager = (SensorManager) mContext.getSystemService(Context.SENSOR_SERVICE);
         mSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+        mTiltSensor = mSensorManager.getDefaultSensor(Sensor.TYPE_TILT_DETECTOR);
         IntentFilter screenStateFilter = new IntentFilter(Intent.ACTION_SCREEN_ON);
         screenStateFilter.addAction(Intent.ACTION_SCREEN_OFF);
         mContext.registerReceiver(mScreenStateReceiver, screenStateFilter);
@@ -314,17 +378,27 @@ public class KeyHandler implements DeviceKeyHandler {
     }
 
     private void onDisplayOn() {
-        if (mUseProxiCheck) {
-            if (DEBUG) Log.d(TAG, "Display on");
+        if (DEBUG) Log.i(TAG, "Display on");
+        if (enableProxiSensor()) {
             mSensorManager.unregisterListener(mProximitySensor, mSensor);
+        }
+        if (mUseTiltCheck) {
+            mSensorManager.unregisterListener(mTiltSensorListener, mTiltSensor);
         }
     }
 
     private void onDisplayOff() {
-        if (mUseProxiCheck) {
-            if (DEBUG) Log.d(TAG, "Display off");
+        if (DEBUG) Log.i(TAG, "Display off");
+        if (enableProxiSensor()) {
             mSensorManager.registerListener(mProximitySensor, mSensor,
-                        SensorManager.SENSOR_DELAY_NORMAL);
+                    SensorManager.SENSOR_DELAY_NORMAL);
+            mProxySensorTimestamp = SystemClock.elapsedRealtime();
+            mProxyWasNear = false;
+        }
+        if (mUseTiltCheck) {
+            mSensorManager.registerListener(mTiltSensorListener, mTiltSensor,
+                    SensorManager.SENSOR_DELAY_NORMAL, BATCH_LATENCY_IN_MS * 1000);
+            mTiltSensorTimestamp = SystemClock.elapsedRealtime();
         }
     }
 
@@ -458,6 +532,29 @@ public class KeyHandler implements DeviceKeyHandler {
             mNoMan.setZenMode(Global.ZEN_MODE_ALARMS, null, TAG);
         } else if (action == 5) {
             mNoMan.setZenMode(Global.ZEN_MODE_NO_INTERRUPTIONS, null, TAG);
+        }
+    }
+
+    private void launchDozePulse() {
+        if (DEBUG) Log.i(TAG, "Doze pulse");
+        mContext.sendBroadcastAsUser(new Intent(DOZE_INTENT),
+                new UserHandle(UserHandle.USER_CURRENT));
+    }
+
+    private boolean enableProxiSensor() {
+        return mUsePocketCheck || mUseWaveCheck || mUseProxiCheck;
+    }
+
+    private void updateDozeSettings() {
+        String value = Settings.System.getStringForUser(mContext.getContentResolver(),
+                    Settings.System.DEVICE_FEATURE_SETTINGS,
+                    UserHandle.USER_CURRENT);
+        if (DEBUG) Log.i(TAG, "Doze settings = " + value);
+        if (!TextUtils.isEmpty(value)) {
+            String[] parts = value.split(":");
+            mUseWaveCheck = Boolean.valueOf(parts[0]);
+            mUsePocketCheck = Boolean.valueOf(parts[1]);
+            mUseTiltCheck = Boolean.valueOf(parts[2]);
         }
     }
 }
