@@ -50,4 +50,13 @@
     <string name="hbm_mode_title">High brightness mode</string>
     <string name="proxi_summary_head">Check proximity sensor for handling gestures</string>
     <string name="proxi_title_head">Proximity check</string>
+    <string name="doze_category_title">Ambient display</string>
+    <string name="doze_category_summary">Wake screen when you receive notifications</string>
+    <string name="wave_check_summary">Pulse notifications on hand wave</string>
+    <string name="wave_check_title">Hand wave</string>
+    <string name="tilt_check_summary">Pulse notifications when device is picked up</string>
+    <string name="tilt_check_title">Pick up</string>
+    <string name="pocket_check_summary">Pulse notifications on removal from pocket</string>
+    <string name="pocket_check_title">Pocket</string>
+    <string name="ambient_display_enable">Ambient display must be enabled in display settings</string>
 </resources>
