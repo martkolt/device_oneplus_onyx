@@ -15,6 +15,10 @@ PRODUCT_PACKAGES += \
     android.hardware.camera.provider@2.4-impl \
     camera.device@1.0-impl
 
+# Power
+PRODUCT_PACKAGES += \
+    android.hardware.power@1.0-service-qti
+
 # Bluetooth
 PRODUCT_PACKAGES += \
     android.hardware.bluetooth@1.0-impl \

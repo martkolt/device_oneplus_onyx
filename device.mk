@@ -211,10 +211,6 @@ PRODUCT_PACKAGES += \
     libOmxVenc \
     libstagefrighthw
 
-# Power
-PRODUCT_PACKAGES += \
-    power.msm8974
-
 # Recovery
 PRODUCT_PACKAGES += \
     librecovery_updater_oppo
