@@ -97,16 +97,6 @@ PRODUCT_PACKAGES += \
     libqcomvoiceprocessing \
     tinymix
 
-# Audio HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.audio@2.0-impl \
-    android.hardware.audio.effect@2.0-impl
-
-# DRM HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.drm@1.0-impl \
-    android.hardware.drm@1.0-service
-
 # Camera
 PRODUCT_PACKAGES += \
     camera.msm8974 \
@@ -118,11 +108,6 @@ PRODUCT_PACKAGES += \
 # Disable camera Treble path
 PRODUCT_PROPERTY_OVERRIDES += \
     camera.disable_treble=true
-
-# Legacy Camera HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.camera.provider@2.4-impl-legacy \
-    camera.device@1.0-impl-legacy
 
 # Data
 PRODUCT_PACKAGES += \
@@ -136,10 +121,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     libbt-vendor
 
-# Bluetooth HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.bluetooth@1.0-impl
-
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
@@ -147,18 +128,6 @@ PRODUCT_PACKAGES += \
     hwcomposer.msm8974 \
     memtrack.msm8974 \
     liboverlay
-
-# Display HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.graphics.allocator@2.0-impl \
-    android.hardware.graphics.allocator@2.0-service \
-    android.hardware.graphics.composer@2.1-impl \
-    android.hardware.graphics.mapper@2.0-impl \
-    android.hardware.memtrack@1.0-impl
-
-# RenderScript HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.renderscript@1.0-impl
 
 # GPS
 PRODUCT_PACKAGES += \
@@ -171,10 +140,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/quipc.conf:system/etc/quipc.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf \
     $(LOCAL_PATH)/gps/xtwifi.conf:system/etc/xtwifi.conf
-
-# GPS HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.gnss@1.0-impl
 
 # IPv6
 PRODUCT_PACKAGES += \
@@ -193,10 +158,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     keystore.msm8974
 
-# Keymaster HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.keymaster@3.0-impl
-
 # FM
 PRODUCT_PACKAGES += \
     FMRadio \
@@ -204,25 +165,9 @@ PRODUCT_PACKAGES += \
     qcom.fmradio \
     qcom.fmradio.xml
 
-# FM HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.broadcastradio@1.0-impl
-
 # Lights
 PRODUCT_PACKAGES += \
     lights.msm8974
-
-# Lights HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.light@2.0-impl
-
-# Vibrator HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.vibrator@1.0-impl
-
-# Thermal HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.thermal@1.0-impl
 
 # Limit dex2oat threads to improve thermals
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -262,18 +207,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     power.msm8974
 
-# Power HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.power@1.0-impl
-
 # RIL
 PRODUCT_PACKAGES += \
     libcnefeatureconfig \
     libxml2
-
-# RIL HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.radio@1.0-impl
 
 # Seccomp
 PRODUCT_COPY_FILES += \
@@ -287,21 +224,9 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     libshims_sensors
 
-# Sensors HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.sensors@1.0-impl
-
 # USB
 PRODUCT_PACKAGES += \
     com.android.future.usb.accessory
-
-# USB HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.usb@1.0-service
-
-# Configstore HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.configstore@1.0-service
 
 # WiFi
 PRODUCT_COPY_FILES += \
@@ -317,10 +242,6 @@ PRODUCT_PACKAGES += \
     wpa_supplicant.conf \
     wpa_supplicant_overlay.conf \
     p2p_supplicant_overlay.conf
-
-# WiFi HIDL interfaces
-PRODUCT_PACKAGES += \
-    android.hardware.wifi@1.0-service
 
 PRODUCT_PACKAGES += \
     wcnss_service \
@@ -348,6 +269,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heaptargetutilization=0.75 \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
+
+# HIDL packages
+$(call inherit-product, $(LOCAL_PATH)/hidl.mk)
 
 # Inherit from oppo-common
 $(call inherit-product, device/oppo/common/common.mk)
