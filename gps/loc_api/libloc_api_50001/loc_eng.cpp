@@ -77,11 +77,11 @@
 #define FAILURE FALSE
 
 #ifndef GPS_CONF_FILE
-#define GPS_CONF_FILE            "/vendor/etc/gps.conf"   //??? platform independent
+#define GPS_CONF_FILE            "/etc/gps.conf"   //??? platform independent
 #endif
 
 #ifndef SAP_CONF_FILE
-#define SAP_CONF_FILE            "/vendor/etc/sap.conf"
+#define SAP_CONF_FILE            "/etc/sap.conf"
 #endif
 
 #define XTRA1_GPSONEXTRA         "xtra1.gpsonextra.net"
@@ -90,6 +90,8 @@ using namespace loc_core;
 
 boolean configAlreadyRead = false;
 unsigned int agpsStatus = 0;
+loc_gps_cfg_s_type gps_conf;
+loc_sap_cfg_s_type sap_conf;
 
 /* Parameter spec table */
 static const loc_param_s_type gps_conf_table[] =
@@ -498,7 +500,7 @@ struct LocEngSuplMode : public LocMsg {
         locallog();
     }
     inline virtual void proc() const {
-        mUlp->setCapabilities(ContextBase::getCarrierCapabilities());
+        mUlp->setCapabilities(getCarrierCapabilities());
     }
     inline  void locallog() const {
     }
@@ -1682,6 +1684,24 @@ inline void LocEngReportGpsMeasurement::log() const {
   }
 #define INIT_CHECK(ctx, ret) STATE_CHECK(ctx, "instance not initialized", ret)
 
+uint32_t getCarrierCapabilities() {
+    #define carrierMSA (uint32_t)0x2
+    #define carrierMSB (uint32_t)0x1
+    #define gpsConfMSA (uint32_t)0x4
+    #define gpsConfMSB (uint32_t)0x2
+    uint32_t capabilities = gps_conf.CAPABILITIES;
+    if ((gps_conf.SUPL_MODE & carrierMSA) != carrierMSA) {
+        capabilities &= ~gpsConfMSA;
+    }
+    if ((gps_conf.SUPL_MODE & carrierMSB) != carrierMSB) {
+        capabilities &= ~gpsConfMSB;
+    }
+
+    LOC_LOGV("getCarrierCapabilities: CAPABILITIES %x, SUPL_MODE %x, carrier capabilities %x",
+             gps_conf.CAPABILITIES, gps_conf.SUPL_MODE, capabilities);
+    return capabilities;
+}
+
 /*===========================================================================
 FUNCTION    loc_eng_init
 
@@ -1955,6 +1975,7 @@ static int loc_eng_stop_handler(loc_eng_data_s_type &loc_eng_data)
    int ret_val = LOC_API_ADAPTER_ERR_SUCCESS;
 
    if (loc_eng_data.adapter->isInSession()) {
+
        ret_val = loc_eng_data.adapter->stopFix();
        loc_eng_data.adapter->setInSession(FALSE);
    }
@@ -2836,9 +2857,8 @@ void loc_eng_handle_engine_up(loc_eng_data_s_type &loc_eng_data)
     if (loc_eng_data.adapter->isInSession()) {
         // This sets the copy in adapter to modem
         loc_eng_data.adapter->setInSession(false);
-        loc_eng_start_handler(loc_eng_data);
+        loc_eng_data.adapter->sendMsg(new LocEngStartFix(loc_eng_data.adapter));
     }
-
     EXIT_LOG(%s, VOID_RET);
 }
 
@@ -2866,38 +2886,6 @@ static int set_sched_policy(int tid, SchedPolicy policy)
 #endif /* USE_GLIB */
 
 /*===========================================================================
-FUNCTION resolve_config_file_path
-
-DESCRIPTION
-   resolve the given config file path into a vaild full path considering that
-   it could be located in vendor partition.
-
-DEPENDENCIES
-   None
-
-RETURN VALUE
-   None
-
-SIDE EFFECTS
-   N/A
-
-===========================================================================*/
-static void resolve_config_file_path(const char* conf_file_name,
-                                     char* resolved_file_path) {
-    FILE *file;
-    if (conf_file_name[0] == '/') {
-        sprintf(resolved_file_path, "/vendor%s", conf_file_name);
-    } else {
-        sprintf(resolved_file_path, "/vendor/%s", conf_file_name);
-    }
-    if ((file = fopen(resolved_file_path, "r")) != NULL) {
-        fclose(file);
-        return;
-    }
-    strcpy(resolved_file_path, conf_file_name);
-}
-
-/*===========================================================================
 FUNCTION    loc_eng_read_config
 
 DESCRIPTION
@@ -2922,11 +2910,8 @@ int loc_eng_read_config(void)
       loc_default_parameters();
       // We only want to parse the conf file once. This is a good place to ensure that.
       // In fact one day the conf file should go into context.
-      char conf_file_name[256];
-      resolve_config_file_path(GPS_CONF_FILE, conf_file_name);
-      UTIL_READ_CONF(conf_file_name, gps_conf_table);
-      resolve_config_file_path(SAP_CONF_FILE, conf_file_name);
-      UTIL_READ_CONF(conf_file_name, sap_conf_table);
+      UTIL_READ_CONF(GPS_CONF_FILE, gps_conf_table);
+      UTIL_READ_CONF(SAP_CONF_FILE, sap_conf_table);
       configAlreadyRead = true;
     } else {
       LOC_LOGV("GPS Config file has already been read\n");
