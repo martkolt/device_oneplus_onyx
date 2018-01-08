@@ -27,6 +27,13 @@ public class HBMModeSwitch implements OnPreferenceChangeListener {
 
     private static final String FILE = "/sys/devices/virtual/graphics/fb0/hbm";
 
+    public static String getFile() {
+        if (Utils.fileWritable(FILE)) {
+            return FILE;
+        }
+        return null;
+    }
+
     public static boolean isSupported() {
         return Utils.fileWritable(FILE);
     }

@@ -48,6 +48,7 @@
     <string name="graphics_title">Graphics</string>
     <string name="hbm_mode_summary"></string>
     <string name="hbm_mode_title">High brightness mode</string>
+    <string name="tile_hbm_mode">High brightness mode</string>
     <string name="proxi_summary_head">Check proximity sensor for handling gestures</string>
     <string name="proxi_title_head">Proximity check</string>
     <string name="doze_category_title">Ambient display</string>
