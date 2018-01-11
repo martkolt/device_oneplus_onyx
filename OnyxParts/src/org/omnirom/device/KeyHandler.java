@@ -511,6 +511,7 @@ public class KeyHandler implements DeviceKeyHandler {
             String[] parts = value.split(",");
             return Integer.valueOf(parts[position]);
         } catch (Exception e) {
+            // Ignore
         }
         return 0;
     }
