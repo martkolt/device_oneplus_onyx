@@ -37,7 +37,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.util.Log;
 
-public class DozeSettings extends PreferenceFragment  {
+public class DozeSettings extends PreferenceFragment {
 
     private static final String KEY_WAVE_CHECK = "wave_check";
     private static final String KEY_POCKET_CHECK = "pocket_check";

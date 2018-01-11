@@ -173,6 +173,7 @@ public class DeviceSettings extends PreferenceFragment implements
             String[] parts = value.split(",");
             return Integer.valueOf(parts[position]);
         } catch (Exception e) {
+            // Ignore
         }
         return 0;
     }
@@ -194,6 +195,7 @@ public class DeviceSettings extends PreferenceFragment implements
             Settings.System.putString(getContext().getContentResolver(),
                     Settings.System.BUTTON_EXTRA_KEY_MAPPING, newValue);
         } catch (Exception e) {
+            // Ignore
         }
     }
 }
