@@ -58,7 +58,7 @@ public class TorchGestureSwitch implements OnPreferenceChangeListener {
         }
 
         boolean enabled = isEnabled(context);
-        if(enabled)
+        if (enabled)
             Utils.writeValue(getFile(), "1");
         else
             Utils.writeValue(getFile(), "0");
@@ -67,7 +67,7 @@ public class TorchGestureSwitch implements OnPreferenceChangeListener {
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         Boolean enabled = (Boolean) newValue;
-        if(enabled)
+        if (enabled)
             Utils.writeValue(getFile(), "1");
         else
             Utils.writeValue(getFile(), "0");
