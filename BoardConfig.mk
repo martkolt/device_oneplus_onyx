@@ -181,9 +181,6 @@ BOARD_PROVIDES_LIBRIL := true
 BOARD_PROVIDES_RILD := true
 FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
 
-# RPC
-TARGET_NO_RPC := true
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 
