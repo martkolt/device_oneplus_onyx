@@ -156,7 +156,12 @@ TARGET_QCOM_DISPLAY_VARIANT := caf-msm8974
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
 
-WITH_DEXPREOPT := false
+# Enable dexpreopt to speed boot time
+ifeq ($(HOST_OS),linux)
+  ifneq ($(TARGET_BUILD_VARIANT),eng)
+    WITH_DEXPREOPT := true
+  endif
+endif
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_onyx
