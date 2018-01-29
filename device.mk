@@ -270,4 +270,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapminfree=2m \
     dalvik.vm.heapmaxfree=8m
 
+# OTA props
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.ota.romname=Oreo-onyx \
+   ro.ota.version=$(shell date +"%Y%m%d") \
+   ro.ota.manifest=https://raw.githubusercontent.com/Oreo-onyx/OTA/master/onyx.xml
+
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
