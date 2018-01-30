@@ -3,6 +3,27 @@ on early-init
     write /sys/block/mmcblk0/bdi/read_ahead_kb 2048
     write /sys/class/mmc_host/mmc0/clk_scaling/scale_down_in_low_wr_load 1
 
+on init
+    # Set up the BFQIO hierarchy
+    mkdir /dev/bfqio 0755 root system
+    mount cgroup none /dev/bfqio bfqio
+    chown root system /dev/bfqio/tasks
+    chmod 0664 /dev/bfqio/tasks
+    chmod 0220 /dev/bfqio/cgroup.event_control
+
+    # Soft realtime class for display service
+    mkdir /dev/bfqio/rt-display 0755 root system
+    write /dev/bfqio/rt-display/bfqio.ioprio_class 1
+    chown system system /dev/bfqio/rt-display/tasks
+    chmod 0664 /dev/bfqio/rt-display/tasks
+    chmod 0220 /dev/bfqio/rt-display/cgroup.event_control
+
+# Set slice_idle to 0 for BFQ
+on property:sys.io.scheduler=bfq
+    write /sys/block/mmcblk0/queue/iosched/slice_idle 0
+    write /sys/block/mmcblk1/queue/iosched/slice_idle 0
+    write /sys/block/dm-0/queue/iosched/slice_idle 0
+
 on enable-low-power
     write /sys/module/lpm_levels/enable_low_power/l2 4
     write /sys/module/msm_pm/modes/cpu0/power_collapse/suspend_enabled 1
