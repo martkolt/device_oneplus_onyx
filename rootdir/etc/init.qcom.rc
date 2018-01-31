@@ -387,10 +387,6 @@ on post-fs-data
     # Camera sockets
     mkdir /data/misc/camera 0770 camera camera
 
-    # Change permissions on fsck log so it can be added to the dropbox
-    chown root log /dev/fscklogs/log
-    chmod 0640 /dev/fscklogs/log
-
 on fs
     mount_all /fstab.qcom
     restorecon_recursive /persist
