@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cyanogenmod.doze.onyx"
+    package="com.lineageos.doze.onyx"
     android:versionCode="1"
     android:versionName="1.0"
     android:sharedUserId="android.uid.system">
@@ -16,14 +16,14 @@
         android:label="OnyxDoze"
         android:persistent="true">
 
-        <receiver android:name="com.cyanogenmod.doze.onyx.BootCompletedReceiver">
+        <receiver android:name="com.lineageos.doze.onyx.BootCompletedReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 
-        <service android:name="com.cyanogenmod.doze.onyx.OnyxDozeService"
+        <service android:name="com.lineageos.doze.onyx.OnyxDozeService"
                  android:permission="OnyxDozeService">
         </service>
 
