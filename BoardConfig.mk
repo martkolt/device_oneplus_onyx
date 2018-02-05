@@ -36,6 +36,9 @@ TARGET_KERNEL_SOURCE    := kernel/oneplus/onyx
 KERNEL_TOOLCHAIN        := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
 KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
+# Haxx
+TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
+
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE       := 16777216
