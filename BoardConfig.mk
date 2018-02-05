@@ -29,13 +29,12 @@ BOARD_KERNEL_CMDLINE    := androidboot.hardware=qcom androidboot.bootdevice=msm_
 BOARD_KERNEL_CMDLINE    += androidboot.selinux=permissive
 BOARD_KERNEL_PAGESIZE   := 2048
 BOARD_MKBOOTIMG_ARGS    := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-# BOARD_KERNEL_IMAGE_NAME := zImage-dtb
-# TARGET_KERNEL_ARCH      := arm
-# TARGET_KERNEL_CONFIG    := onyx_defconfig
-# TARGET_KERNEL_SOURCE    := kernel/oneplus/onyx
-# KERNEL_TOOLCHAIN        := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
-# KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
-TARGET_PREBUILT_KERNEL := $(PLATFORM_PATH)/kernel
+BOARD_KERNEL_IMAGE_NAME := zImage-dtb
+TARGET_KERNEL_ARCH      := arm
+TARGET_KERNEL_CONFIG    := onyx_defconfig
+TARGET_KERNEL_SOURCE    := kernel/oneplus/onyx
+KERNEL_TOOLCHAIN        := $(ANDROID_BUILD_TOP)/prebuilts/gcc/$(HOST_OS)-x86/arm/arm-eabi-4.8/bin
+KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
 
 # Haxx
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include

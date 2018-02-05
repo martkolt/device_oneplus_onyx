@@ -33,9 +33,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     librecovery_updater_oppo
 
-PRODUCT_COPY_FILES += \
-    device/oneplus/onyx/kernel:kernel
-
 PRODUCT_NAME := omni_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_BRAND := OnePlus
