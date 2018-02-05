@@ -161,11 +161,6 @@ BOARD_USES_QCOM_HARDWARE := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.full
 
-# TWRP Recovery
-ifeq ($(WITH_TWRP),true)
-include $(PLATFORM_PATH)/twrp.mk
-endif
-
 # RIL
 TARGET_RIL_VARIANT := caf
 
