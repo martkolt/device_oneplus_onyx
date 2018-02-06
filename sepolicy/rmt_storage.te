@@ -3,3 +3,5 @@ allow rmt_storage nvbackup_block_device:blk_file rw_file_perms;
 allow rmt_storage modem_block_device:blk_file { read write open };
 allow rmt_storage ssd_device:blk_file rw_file_perms;
 allow rmt_storage self:capability { sys_admin };
+allow rmt_storage sysfs:file { open read getattr };
+allow rmt_storage power_wakelock_file:file rw_file_perms;

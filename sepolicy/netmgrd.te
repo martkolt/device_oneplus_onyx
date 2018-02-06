@@ -3,3 +3,4 @@ allow netmgrd net_data_file:dir { open read getattr };
 allow netmgrd toolbox_exec:file { open read getattr execute execute_no_trans };
 allow netmgrd self:capability { dac_override };
 allow netmgrd netd_socket:sock_file rw_file_perms;
+allow netmgrd power_wakelock_file:file rw_file_perms;

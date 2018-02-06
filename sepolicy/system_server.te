@@ -1,7 +1,7 @@
 # for CMHardwareService access to TapToWake
 allow system_server proc_touchpanel:file rw_file_perms;
 allow system_server proc_touchpanel:dir { search };
-allow system_server touchscreen_file:file rw_file_perms;
+allow system_server sysfs_leds:file rw_file_perms;
 
 # examine battery state
 r_dir_file(system_server, sysfs_usb_supply);
@@ -19,3 +19,9 @@ allow system_server sensors_socket:sock_file rw_file_perms;
 allow system_server qmuxd:unix_stream_socket { connectto };
 
 allow system_server frp_block_device:blk_file rw_file_perms;
+
+allow system_server sysfs_lowmemorykiller:file { getattr w_file_perms };
+allow system_server power_wakelock_file:file rw_file_perms;
+
+# Handeled by WITH_DEXPREOPT_BOOT_IMG_AND_SYSTEM_SERVER_ONLY
+dontaudit system_server dalvikcache_data_file:file { execute write };
