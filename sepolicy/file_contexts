@@ -22,15 +22,23 @@
 
 # Vibrator
 /sys/devices/virtual/timed_output/vibrator(/.*)?        u:object_r:sysfs_vibrator:s0
-
-# Backlight
-/sys/class/leds/lcd-backlight/brightness                u:object_r:touchscreen_file:s0
-
-# Vibrator config
-/sys/devices/virtual/timed_output/vibrator/vtg_level    u:object_r:vibeamp_sysfs:s0
+/sys/class/timed_output/vibrator(/.*)?                  u:object_r:sysfs_vibrator:s0
 
 # ADB
 /dev/android_adb                                        u:object_r:adb_device:s0
 
-# HALs
+# USB HAL
 /system/vendor/bin/hw/android\.hardware\.usb@1\.0-service\.onyx         u:object_r:hal_usb_default_exec:s0
+
+# Light
+/sys/class/leds/lcd-backlight(/.*)?                                     u:object_r:sysfs_leds:s0
+/sys/devices/mdp\.0/qcom\,mdss_fb_primary\.171/leds/lcd-backlight(/.*)? u:object_r:sysfs_leds:s0
+/sys/devices/leds-qpnp-25/leds(/.*)?                                    u:object_r:sysfs_leds:s0
+
+# CPU & Mem
+/sys/power/wake_lock                                    u:object_r:power_wakelock_file:s0
+/sys/power/wake_unlock                                  u:object_r:power_wakelock_file:s0
+/sys/module/lowmemorykiller(/.*)?                       u:object_r:sysfs_lowmemorykiller:s0
+
+# Logcat
+/data/misc/logd/logcat.txt                              u:object_r:misc_logd_file:s0

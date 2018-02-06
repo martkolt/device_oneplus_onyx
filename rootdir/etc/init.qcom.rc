@@ -291,7 +291,7 @@ on post-fs
     chmod 0660 /proc/tri-state-key/keyCode_bottom
 
     # Logcat
-    rm /data/logcat.txt
+    rm /data/misc/logd/logcat.txt
 
 on post-fs-data
     mkdir /data/media 0770 media_rw media_rw
@@ -404,7 +404,7 @@ on property:hw.fm.init=0
     write /sys/module/radio_iris_transport/parameters/fmsmd_set 0
 
 # Logcat
-service logcat_debug /system/bin/logcat -b all -f /data/logcat.txt -v threadtime
+service logcat_debug /system/bin/logcat -b all -f /data/misc/logd/logcat.txt -v threadtime
     class main
     user root
     group system

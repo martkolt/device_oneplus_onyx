@@ -1,6 +1,8 @@
 allow init socket_device:sock_file create;
 allow init socket_device:sock_file setattr;
 allow init proc_touchpanel:file write;
+allow init misc_logd_file:dir { remove_name };
+allow init misc_logd_file:file { unlink };
 
 allow init { domain -lmkd -crash_dump }:process noatsecure;
 
