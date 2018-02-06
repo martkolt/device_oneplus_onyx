@@ -21,6 +21,7 @@
 # BT/WiFi MAC
 /persist/.genmac                                        u:object_r:wifi_data_file:s0
 /persist/.bt_nv.bin                                     u:object_r:bluetooth_data_file:s0
+/sys/module/wlan/parameters/fwpath                      u:object_r:sysfs_wlan_fwpath:s0
 
 # Vibrator
 /sys/devices/virtual/timed_output/vibrator(/.*)?        u:object_r:sysfs_vibrator:s0
