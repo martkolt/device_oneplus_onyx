@@ -160,7 +160,7 @@ PRODUCT_COPY_FILES += \
 
 # Keylayouts
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/synaptics-rmi.kl:system/usr/keylayout/synaptics-rmi.kl
+    $(LOCAL_PATH)/keylayout/synaptics-rmi.kl:system/vendor/usr/keylayout/synaptics-rmi.kl
 
 # Keystore
 PRODUCT_PACKAGES += \
