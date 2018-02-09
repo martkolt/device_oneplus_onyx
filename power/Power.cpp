@@ -62,22 +62,16 @@ Power::Power() {
 
 // Methods from ::android::hardware::power::V1_0::IPower follow.
 Return<void> Power::setInteractive(bool interactive)  {
-    ALOGE("YumeMichi: HIDL: Set power interactive.");
-
     power_set_interactive(interactive ? 1 : 0);
     return Void();
 }
 
 Return<void> Power::powerHint(PowerHint hint, int32_t data) {
-    ALOGE("YumeMichi: HIDL: Set power hint.");
-
     power_hint(static_cast<power_hint_t>(hint), &data);
     return Void();
 }
 
 Return<void> Power::setFeature(Feature feature, bool activate)  {
-    ALOGE("YumeMichi: HIDL: Set power feature.");
-
     set_feature(static_cast<feature_t>(feature), activate ? 1 : 0);
     return Void();
 }
@@ -237,8 +231,6 @@ Return<void> Power::powerHintAsync(PowerHint hint, int32_t data) {
 #endif
 
 Return<int32_t> Power::getFeature(LineageFeature feature)  {
-    ALOGE("YumeMichi: HIDL: Got power LineageFeature num = %d", get_number_of_profiles());
-
     if (feature == LineageFeature::SUPPORTED_PROFILES) {
         return get_number_of_profiles();
     }

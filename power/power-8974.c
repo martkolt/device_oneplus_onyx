@@ -60,8 +60,6 @@ static void set_power_profile(int profile)
     if (profile == current_power_profile)
         return;
 
-    ALOGE("YumeMichi: %s: Set Power profile = %d", __func__, profile);
-
     switch (profile) {
     case PROFILE_POWER_SAVE:
         property_set(POWER_PROFILE_PROPERTY, POWER_SAVE_PROP);
@@ -81,8 +79,6 @@ void interaction(int duration, int num_args, int opt_list[]);
 
 int power_hint_override(power_hint_t hint, void *data)
 {
-    ALOGE("YumeMichi: %s: Got power hint.", __func__);
-
     if (hint == POWER_HINT_SET_PROFILE) {
         set_power_profile(*(int32_t *)data);
         return HINT_HANDLED;
@@ -93,14 +89,10 @@ int power_hint_override(power_hint_t hint, void *data)
 
 int set_interactive_override(int on)
 {
-    ALOGE("YumeMichi: %s: Set power interactive.", __func__);
-
     return HINT_NONE;
 }
 
 int get_number_of_profiles()
 {
-    ALOGE("YumeMichi: %s: Got power perf num = %d.", __func__, POWER_NR_OF_SUPPORTED_PROFILES);
-
     return POWER_NR_OF_SUPPORTED_PROFILES;
 }
