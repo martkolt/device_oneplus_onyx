@@ -1,4 +1,4 @@
-allow vold persist_file:dir { open read search };
+allow vold persist_file:dir { open read search ioctl };
 allow vold proc_touchpanel:dir { open read };
 allow vold power_wakelock_file:file rw_file_perms;
 allow vold cache_file:dir { create setattr };
