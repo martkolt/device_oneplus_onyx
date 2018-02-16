@@ -511,6 +511,8 @@ service time_daemon /vendor/bin/time_daemon
 
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service
+    stop camera-provider-2-4
+    start camera-provider-2-4
 
 service hciattach /system/bin/sh /init.qcom.bt.sh
     class late_start
