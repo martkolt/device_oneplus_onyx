@@ -248,8 +248,7 @@ PRODUCT_PACKAGES += \
     p2p_supplicant_overlay.conf
 
 PRODUCT_PACKAGES += \
-    wcnss_service \
-    wificond
+    wcnss_service
 
 # HWUI
 PRODUCT_PROPERTY_OVERRIDES += \
