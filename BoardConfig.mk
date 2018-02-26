@@ -72,5 +72,3 @@ TW_THEME                     := portrait_hdpi
 
 # Assertions
 TARGET_BOARD_INFO_FILE         := $(PLATFORM_PATH)/board-info.txt
-TARGET_RECOVERY_UPDATER_LIBS   := librecovery_updater_oppo
-TARGET_RELEASETOOLS_EXTENSIONS := $(PLATFORM_PATH)
