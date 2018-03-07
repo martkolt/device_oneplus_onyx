@@ -268,5 +268,9 @@ PRODUCT_PROPERTY_OVERRIDES += \
    ro.ota.version=$(shell date +"%Y%m%d") \
    ro.ota.manifest=https://raw.githubusercontent.com/Oreo-onyx/OTA/master/onyx.xml
 
+# Disable lockscreen discard
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.lockscreen.secdiscard=false
+
 # HIDL packages
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
