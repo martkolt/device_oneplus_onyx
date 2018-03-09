@@ -249,7 +249,7 @@ vendor/lib/libsystem_health_mon.so
 
 # Radio
 -app/shutdownlistener/shutdownlistener.apk:vendor/app/shutdownlistener/shutdownlistener.apk
--priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk:vendor/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
+-priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 bin/netmgrd:vendor/bin/netmgrd
 bin/qmuxd:vendor/bin/qmuxd
 bin/radish:vendor/bin/radish
@@ -259,9 +259,9 @@ etc/data/dsi_config.xml:vendor/etc/data/dsi_config.xml
 etc/data/netmgr_config.xml:vendor/etc/data/netmgr_config.xml
 etc/permissions/qcnvitems.xml:vendor/etc/permissions/qcnvitems.xml
 etc/permissions/qcrilhook.xml:vendor/etc/permissions/qcrilhook.xml
--framework/ConnectivityExt.jar
--framework/qcnvitems.jar
--framework/qcrilhook.jar
+-framework/ConnectivityExt.jar:vendor/framework/ConnectivityExt.jar
+-framework/qcnvitems.jar:vendor/framework/qcnvitems.jar
+-framework/qcrilhook.jar:vendor/framework/qcrilhook.jar
 lib/libmdmdetect.so:vendor/lib/libmdmdetect.so
 lib/libparam.so:vendor/lib/libparam.so
 vendor/lib/libcneapiclient.so
