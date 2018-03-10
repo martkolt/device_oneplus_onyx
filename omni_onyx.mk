@@ -13,19 +13,21 @@
 # limitations under the License.
 
 # Inherit from those products. Most specific first.
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base_telephony.mk)
 
 # Inherit from onyx device
 $(call inherit-product, device/oneplus/onyx/device.mk)
 
 # Inherit some common stuff.
-$(call inherit-product, vendor/aosp/config/common_full_phone.mk)
-# $(call inherit-product, vendor/tesla/config/caf_fw.mk)
+$(call inherit-product, vendor/omni/config/common.mk)
+
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/omni/config/gsm.mk)
 
 # Call the proprietary setup
 $(call inherit-product-if-exists, vendor/oneplus/onyx/onyx-vendor.mk)
 
-PRODUCT_NAME := aosp_onyx
+PRODUCT_NAME := omni_onyx
 PRODUCT_DEVICE := onyx
 PRODUCT_MANUFACTURER := OnePlus
 
@@ -34,9 +36,6 @@ PRODUCT_GMS_CLIENTID_BASE := android-oneplus
 PRODUCT_BRAND := OnePlus
 TARGET_VENDOR := oneplus
 TARGET_VENDOR_PRODUCT_NAME := onyx
-
-PRODUCT_BUILD_PROP_OVERRIDES += \
-	DEVICE_MAINTAINERS="Nimit Mehta (CheckYourScreen)"
 
 PRODUCT_BUILD_PROP_OVERRIDES += \
 	TARGET_DEVICE=OnePlus \

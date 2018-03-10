@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/aosp_onyx.mk 
+    $(LOCAL_DIR)/omni_onyx.mk
