@@ -30,9 +30,6 @@ TARGET_SCREEN_WIDTH := 1080
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
-# Root Method
-WITH_ROOT := false
-
 # for offline charging mode
 PRODUCT_PACKAGES += \
     charger_res_images
@@ -120,12 +117,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     OnyxDoze
 
-# OTA Updates
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ota.romname=AOSP-OnePlus-X-7.1 \
-    ro.ota.version=$(shell date -u +%Y%m%d) \
-    ro.ota.manifest=https://romhut.com/roms/aosp-oneplus-x/ota.xml
-    
 # Graphics
 PRODUCT_PACKAGES += \
     copybit.msm8974 \
@@ -134,10 +125,6 @@ PRODUCT_PACKAGES += \
     memtrack.msm8974 \
     liboverlay \
     libtinyxml
-
-# Gello
-# PRODUCT_PACKAGES += \
-#    Gello
 
 # GPS
 PRODUCT_PACKAGES += \

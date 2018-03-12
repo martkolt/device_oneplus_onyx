@@ -68,9 +68,6 @@ TARGET_BOOTANIMATION_TEXTURE_CACHE := true
 MALLOC_SVELTE := true
 TARGET_NEEDS_GCC_LIBC := true
 
-# Webview defs
-PREBUILT_WEBVIEW_VERSION := chromium
-
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "vfs-prerelease"
 
@@ -104,12 +101,8 @@ BOARD_CHARGER_DISABLE_INIT_BLANK := true
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BACKLIGHT_PATH := /sys/class/leds/lcd-backlight/brightness
 
-# CM Hardware
-BOARD_HARDWARE_CLASS += $(PLATFORM_PATH)/cmhw
+# Power
 TARGET_TAP_TO_WAKE_NODE := "/proc/touchpanel/double_tap_enable"
-
-# Enable real time lockscreen charging current values
-BOARD_GLOBAL_CFLAGS += -DBATTERY_REAL_INFO
 
 # Filesystem
 BOARD_FLASH_BLOCK_SIZE := 131072
@@ -124,9 +117,6 @@ BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12611874816
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-
-# Workaround for factory issue
-BOARD_VOLD_CRYPTFS_MIGRATE := true
 
 # FM
 BOARD_HAVE_QCOM_FM := true
@@ -149,8 +139,6 @@ USE_OPENGL_RENDERER := true
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH := $(PLATFORM_PATH)/include
-
-WITH_DEXPREOPT := false
 
 # Init
 TARGET_INIT_VENDOR_LIB := libinit_onyx
