@@ -184,11 +184,6 @@ BOARD_USES_QCOM_HARDWARE := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
 
-# RIL
-BOARD_PROVIDES_LIBRIL := true
-BOARD_PROVIDES_RILD := true
-FEATURE_QCRIL_UIM_SAP_SERVER_MODE := true
-
 # SELinux
 include device/qcom/sepolicy/sepolicy.mk
 include device/qcom/sepolicy/legacy-sepolicy.mk
