@@ -261,6 +261,3 @@ PRODUCT_PACKAGES += \
 
 # HIDL packages
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
-
-# Inherit from oppo-common
-$(call inherit-product, device/oppo/common/common.mk)
