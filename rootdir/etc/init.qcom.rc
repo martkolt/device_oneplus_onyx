@@ -22,6 +22,8 @@ on early-init
     chmod 0775 /sys/kernel/debug
     chown system system /sys/kernel/debug/kgsl/proc
 
+    setprop ro.wcnss.serialno ${ro.boot.serialno}
+
 on init
     export LD_SHIM_LIBS "/system/lib/libgui.so|libshims_sensors.so:/system/lib/hw/camera.msm8974.so|libshims_camera.so:/system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so"
 
@@ -420,7 +422,7 @@ service qmuxd /vendor/bin/qmuxd
 service netmgrd /vendor/bin/netmgrd
     class main
     user root
-    group root radio wifi oem_2950 inet wakelock
+    group root radio readproc wifi oem_2950 inet wakelock
 
 # QCOM sensor
 service sensors /vendor/bin/sensors.qcom
