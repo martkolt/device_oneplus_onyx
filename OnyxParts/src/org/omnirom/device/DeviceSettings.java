@@ -104,8 +104,9 @@ public class DeviceSettings extends PreferenceFragment implements
         mSliderModeBottom.setSummary(mSliderModeBottom.getEntries()[valueIndex]);
 
         mSwapBackRecents = (TwoStatePreference) findPreference(KEY_SWAP_BACK_RECENTS);
-        mSwapBackRecents.setChecked(Settings.System.getInt(getContext().getContentResolver(),
-                    Settings.System.BUTTON_SWAP_BACK_RECENTS, 0) != 0);
+        mSwapBackRecents.setEnabled(SwapBackRecents.isSupported());
+        mSwapBackRecents.setChecked(SwapBackRecents.isCurrentlyEnabled(this.getContext()));
+        mSwapBackRecents.setOnPreferenceChangeListener(new SwapBackRecents());
 
         mHBMModeSwitch = (TwoStatePreference) findPreference(KEY_HBM_SWITCH);
         mHBMModeSwitch.setEnabled(HBMModeSwitch.isSupported());
@@ -124,11 +125,6 @@ public class DeviceSettings extends PreferenceFragment implements
 
     @Override
     public boolean onPreferenceTreeClick(Preference preference) {
-        if (preference == mSwapBackRecents) {
-            Settings.System.putInt(getContext().getContentResolver(),
-                    Settings.System.BUTTON_SWAP_BACK_RECENTS, mSwapBackRecents.isChecked() ? 1 : 0);
-            return true;
-        }
         if (preference == mProxiSwitch) {
             Settings.System.putInt(getContext().getContentResolver(),
                     Settings.System.DEVICE_PROXI_CHECK_ENABLED, mProxiSwitch.isChecked() ? 1 : 0);
