@@ -96,7 +96,7 @@ BOARD_HAVE_BLUETOOTH_QCOM := true
 
 # Camera
 USE_DEVICE_SPECIFIC_CAMERA := true
-TARGET_USES_MEDIA_EXTENSIONS := true
+TARGET_HAS_LEGACY_CAMERA_HAL1 := true
 
 # Charger
 BOARD_CHARGER_DISABLE_INIT_BLANK := true
@@ -197,6 +197,8 @@ BOARD_SEPOLICY_DIRS += \
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
     /system/lib/libgui.so|libshims_sensors.so \
+    /system/vendor/lib/hw/camera.msm8974.so|libshims_camera.so \
+    /system/vendor/lib/hw/camera.msm8974.so|libshims_parameters.so \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
 
 # Wifi
