@@ -198,7 +198,8 @@ BOARD_SEPOLICY_DIRS += \
 # SHIMS
 TARGET_LD_SHIM_LIBS := \
     /system/lib/libgui.so|libshims_sensors.so \
-    /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so
+    /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so \
+    /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so
 
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
