@@ -113,7 +113,6 @@ PRODUCT_PACKAGES += \
     camera.msm8974 \
     libboringssl-compat \
     libshims_atomic \
-    libstlport \
     Snap
 
 # Disable camera Treble path
