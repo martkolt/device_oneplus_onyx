@@ -45,6 +45,9 @@
 # Power HAL
 /system/vendor/bin/hw/android\.hardware\.power@1\.0-service\.onyx       u:object_r:hal_power_default_exec:s0
 
+# Camera HAL
+/system/vendor/bin/hw/android\.hardware\.camera\.provider@2\.4-service\.onyx       u:object_r:hal_camera_default_exec:s0
+
 # CPU & Mem
 /sys/power/wake_lock                                    u:object_r:power_wakelock_file:s0
 /sys/power/wake_unlock                                  u:object_r:power_wakelock_file:s0
