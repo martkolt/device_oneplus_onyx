@@ -1,0 +1,17 @@
+#type hal_camera_default, domain;
+#hal_server_domain(hal_camera_default, hal_camera);
+
+#type hal_camera_default_exec, exec_type, file_type;
+#init_daemon_domain(hal_camera_default);
+
+type hal_camera_default_service, service_manager_type;
+
+binder_service(hal_camera_default)
+add_service(hal_camera_default, hal_camera_default_service)
+#binder_call(hal_camera_default, binderservicedomain)
+
+allow hal_camera_default hal_camera_default_service:service_manager add;
+allow hal_camera_default sensorservice_service:service_manager find;
+
+allow hal_camera_default camera_data_file:sock_file { create unlink read write };
+

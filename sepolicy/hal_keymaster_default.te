@@ -1,1 +1,5 @@
 allow hal_keymaster_default sysfs:file { open read getattr };
+allow hal_keymaster_default firmware_file:dir search;
+
+allow hal_keymaster_default firmware_file:file { read open getattr };
+
