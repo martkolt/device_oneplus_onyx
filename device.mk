@@ -268,5 +268,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lockscreen.secdiscard=false
 
+# OTA
+PRODUCT_PROPERTY_OVERRIDES += \
+    aosp.updater.uri=https://raw.githubusercontent.com/Oreo-onyx/OTA/master/api.json
+
 # HIDL packages
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)
