@@ -1,0 +1,154 @@
+#
+# System properties for OnePlus X
+#
+
+# ADB
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.service.adb.enable=1 \
+    persist.service.debuggable=1 \
+    persist.sys.usb.config=mtp,adb
+
+# NITZ
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.rild.nitz_long_ons_0="" \
+    persist.rild.nitz_long_ons_1="" \
+    persist.rild.nitz_long_ons_2="" \
+    persist.rild.nitz_long_ons_3="" \
+    persist.rild.nitz_plmn="" \
+    persist.rild.nitz_short_ons_0="" \
+    persist.rild.nitz_short_ons_1="" \
+    persist.rild.nitz_short_ons_2="" \
+    persist.rild.nitz_short_ons_3=""
+
+# RIL
+PRODUCT_PROPERTY_OVERRIDES += \
+    DEVICE_PROVISIONED=1 \
+    persist.data.netmgrd.qos.enable=true \
+    persist.radio.add_power_save=1 \
+    persist.radio.apm_sim_not_pwdn=1 \
+    persist.radio.flexmap_type=dds \
+    persist.radio.multisim.config=dsds \
+    ril.subscription.types=NV,RUIM \
+    rild.libargs=-d /dev/smd0 \
+    rild.libpath=/vendor/lib/libril-qc-qmi-1.so \
+    ro.data.large_tcp_window_size=true \
+    ro.telephony.default_network=9,9 \
+    ro.use_data_netmgrd=true \
+    telephony.lteOnGsmDevice=1
+
+# Fast Dormancy
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.env.fastdorm.enabled=false
+
+# Audio
+PRODUCT_PROPERTY_OVERRIDES += \
+    mm.enable.smoothstreaming=true \
+    mm.enable.qcom_parser=37491 \
+    audio.offload.buffer.size.kb=32 \
+    audio.offload.video=true \
+    av.streaming.offload.enable=true \
+    audio.offload.multiple.enabled=false \
+    audio.offload.gapless.enabled=true \
+    tunnel.audio.encode=false \
+    media.aac_51_output_enabled=true \
+    audio.offload.pcm.16bit.enable=true \
+    audio.offload.pcm.24bit.enable=true
+
+# Fluence
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.audio.fluencetype=fluence \
+    persist.audio.fluence.voicecall=true \
+    persist.audio.fluence.voicerec=false \
+    persist.audio.fluence.speaker=true
+
+# Bluetooth
+PRODUCT_PROPERTY_OVERRIDES += \
+    qcom.bluetooth.soc=smd \
+    ro.bluetooth.hfp.ver=1.7 \
+    ro.qualcomm.bt.hci_transport=smd \
+    ro.bluetooth.dun=false \
+    ro.bluetooth.sap=false
+
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1 \
+    persist.camera.cpp.duplication=false
+
+# Strict Mode
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.strictmode.disable=true
+
+# Graphics
+PRODUCT_PROPERTY_OVERRIDES += \
+    debug.sf.hw=1 \
+    debug.egl.hw=1 \
+    debug.composition.type=c2d \
+    persist.hwc.mdpcomp.enable=true \
+    debug.mdpcomp.4k2kSplit=1 \
+    debug.mdpcomp.logs=0 \
+    dev.pm.dyn_samplingrate=1 \
+    persist.demo.hdmirotationlock=false \
+    ro.hdmi.enable=true \
+    persist.speaker.prot.enable=false \
+    qcom.hw.aac.encoder=true \
+    ro.opengles.version=196608 \
+    ro.sf.lcd_density=440 \
+    ro.qualcomm.cabl=0 \
+    debug.hwui.use_buffer_age=false
+
+# QC vendor extension
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.extension_library=libqti-perfd-client.so \
+    ro.frp.pst=/dev/block/platform/msm_sdcc.1/by-name/config \
+    drm.service.enabled=true
+
+# QMI
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.data.qmi.adb_logmask=0
+
+# Sensors
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.qc.sdk.sensors.gestures=true \
+    ro.qc.sdk.gestures.camera=false \
+    ro.qc.sdk.camera.facialproc=false \
+    ro.prj_name=15055 \
+    ro.qti.sensors.smd=true \
+    ro.qti.sensors.ir_proximity=true \
+    ro.qti.sensors.game_rv=true \
+    ro.qti.sensors.georv=true \
+    ro.qti.sensors.smgr_mag_cal_en=true \
+    ro.qti.sensors.step_detector=true \
+    ro.qti.sensors.step_counter=true \
+    ro.qti.sensors.tap=false \
+    ro.qti.sensors.facing=false \
+    ro.qti.sensors.tilt=false \
+    ro.qti.sensors.amd=false \
+    ro.qti.sensors.rmd=false \
+    ro.qti.sensors.vmd=false \
+    ro.qti.sensors.pedometer=false \
+    ro.qti.sensors.pam=false \
+    ro.qti.sdk.sensors.gestures=false \
+    ro.qti.sensors.bte=true \
+    ro.qti.sensors.gtap=true \
+    ro.qti.sensors.vmd=true
+
+# Time services
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.timed.enable=true
+
+# Wifi
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.interface=wlan0
+
+# Google WFD
+# Property to enable user to access Google WFD settings.
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.debug.wfd.enable=1
+
+# Property to choose between virtual/external wfd display
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.sys.wfd.virtual=0
+
+# Google assistant
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.opa.eligible_device=true
