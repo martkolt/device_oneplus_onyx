@@ -115,10 +115,6 @@ PRODUCT_PACKAGES += \
     libshims_atomic \
     Snap
 
-# Disable camera Treble path
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera.disable_treble=true
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
