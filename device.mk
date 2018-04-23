@@ -116,10 +116,6 @@ PRODUCT_PACKAGES += \
     libshims_parameters \
     libstlport
 
-# Disable camera Treble path
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera.disable_treble=true
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
