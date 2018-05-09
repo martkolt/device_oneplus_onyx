@@ -3,3 +3,8 @@ allow init socket_device:sock_file setattr;
 allow init proc_touchpanel:file write;
 
 set_prop(init, wcnss_prop)
+
+allow init video_device:chr_file { open read write ioctl };
+allow init camera_data_file:sock_file { write };
+allow init mm-qcamerad:unix_dgram_socket { sendto };
+allow init cameraserver:binder { call transfer };
