@@ -15,20 +15,11 @@
 -->
 
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    <!-- SAR Level for a device -->
-    <!-- Must be overlaid by device -->
-    <bool name="config_show_sar_enable" translatable="false">true</bool>
-    <!-- Maximum Specific Absorption Rate for head -->
-    <string name="sar_head_level" translatable="false">0.270</string>
-    <!-- Maximum Specific Absorption Rate for body -->
-    <string name="sar_body_level" translatable="false">0.540</string>
+    <!-- When true enable gesture setting. -->
+    <bool name="config_gesture_settings_enabled">true</bool>
 
-    <!-- IC Code for a device -->
-    <!-- Must be overlaid by device -->
-    <bool name="config_show_ic_enable" translatable="false">true</bool>
-    <!-- IC Code -->
-    <string name="ic_model" translatable="false">ONE A0001</string>
-    <string name="ic_code" translatable="false">12739A-A0001</string>
+    <!-- If the Storage Manager settings are enabled. -->
+    <bool name="config_storage_manager_settings_enabled">true</bool>
 
     <!-- Regulatory Info -->
     <!-- Whether to show a preference item for regulatory information in About phone -->

@@ -113,6 +113,10 @@ PRODUCT_PACKAGES += \
     libshims_parameters \
     libstlport
 
+# Disable camera Treble path
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera.disable_treble=true
+
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
@@ -209,6 +213,10 @@ PRODUCT_PACKAGES += \
     libOmxVdec \
     libOmxVenc \
     libstagefrighthw
+
+# Recovery
+PRODUCT_PACKAGES += \
+    librecovery_updater_oppo
 
 # Recovery
 PRODUCT_PACKAGES += \
