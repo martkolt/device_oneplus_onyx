@@ -440,6 +440,9 @@ on property:sys.boot_completed=1
     # Temp hack to fix torch not being registered on boot
     restart media
 
+    # USB fast charge mode
+    write /sys/kernel/fast_charge/force_fast_charge 1
+
 service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
     class main
     user root
@@ -508,14 +511,17 @@ service time_daemon /vendor/bin/time_daemon
 
 on property:vold.decrypt=trigger_restart_framework
     start wcnss-service
+    stop camera-provider-2-4
+    start camera-provider-2-4
 
-service hciattach /system/bin/sh /init.qcom.bt.sh
+service hciattach /vendor/bin/hci_qcomm_init -e
     class late_start
-    user root
+    user bluetooth
     group bluetooth net_bt_admin oem_2950 radio
     disabled
     oneshot
 
+## Properties start here
 on property:bluetooth.hciattach=true
     start hciattach
 

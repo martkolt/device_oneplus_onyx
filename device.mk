@@ -45,9 +45,6 @@ PRODUCT_PACKAGES += \
     init.qcom.usb.rc \
     ueventd.qcom.rc
 
-PRODUCT_PACKAGES += \
-    init.qcom.bt.sh
-
 # Permissions
 PRODUCT_COPY_FILES += \
     external/ant-wireless/antradio-library/com.dsi.ant.antradio_library.xml:system/vendor/etc/permissions/com.dsi.ant.antradio_library.xml \
@@ -118,10 +115,6 @@ PRODUCT_PACKAGES += \
     libshims_atomic \
     Snap
 
-# Disable camera Treble path
-PRODUCT_PROPERTY_OVERRIDES += \
-    camera.disable_treble=true
-
 # Data
 PRODUCT_PACKAGES += \
     librmnetctl \
@@ -154,6 +147,7 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/gps/gps.conf:system/etc/gps.conf \
+    $(LOCAL_PATH)/gps/gps.conf:system/etc/gps_debug.conf \
     $(LOCAL_PATH)/gps/flp.conf:system/etc/flp.conf \
     $(LOCAL_PATH)/gps/izat.conf:system/etc/izat.conf \
     $(LOCAL_PATH)/gps/sap.conf:system/etc/sap.conf
@@ -269,6 +263,10 @@ PRODUCT_PACKAGES += \
 # Disable lockscreen discard
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.lockscreen.secdiscard=false
+
+# OTA
+PRODUCT_PROPERTY_OVERRIDES += \
+    aosp.updater.uri=https://raw.githubusercontent.com/Oreo-onyx/OTA/master/api.json
 
 # HIDL packages
 $(call inherit-product, $(LOCAL_PATH)/hidl.mk)

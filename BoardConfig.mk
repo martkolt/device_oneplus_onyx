@@ -201,6 +201,11 @@ TARGET_LD_SHIM_LIBS := \
     /system/vendor/lib/libmmcamera2_stats_algorithm.so|libshims_atomic.so \
     /system/vendor/lib/libqomx_jpegenc.so|libboringssl-compat.so
 
+# Jack
+ifeq ($(ANDROID_JACK_VM_ARGS),)
+ANDROID_JACK_VM_ARGS := -Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m
+endif
+
 # Wifi
 BOARD_HAS_QCOM_WLAN := true
 BOARD_WLAN_DEVICE := qcwcn

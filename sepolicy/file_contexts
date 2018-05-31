@@ -36,9 +36,6 @@
 # ADB
 /dev/android_adb                                        u:object_r:adb_device:s0
 
-# USB HAL
-/system/vendor/bin/hw/android\.hardware\.usb@1\.0-service\.onyx         u:object_r:hal_usb_default_exec:s0
-
 # Light HAL
 /system/vendor/bin/hw/android\.hardware\.light@2\.0-service\.onyx       u:object_r:hal_light_default_exec:s0
 /sys/class/leds/lcd-backlight(/.*)?                                     u:object_r:sysfs_leds:s0
